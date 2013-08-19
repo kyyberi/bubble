@@ -180,7 +180,7 @@ d3.json("test.json", function(nations) {
   // After the transition finishes, you can mouseover to change the year.
   function enableInteraction() {
     var yearScale = d3.scale.linear()
-        .domain([1800, 2009])
+        .domain([2008, 2013])
         .range([box.x + 10, box.x + box.width - 10])
         .clamp(true);
 
@@ -209,7 +209,7 @@ d3.json("test.json", function(nations) {
   // Tweens the entire chart by first tweening the year, and then the data.
   // For the interpolated data, the dots and label are redrawn.
   function tweenYear() {
-    var year = d3.interpolateNumber(1998, 2013);
+    var year = d3.interpolateNumber(2008, 2013);
     return function(t) { displayYear(year(t)); };
   }
 
