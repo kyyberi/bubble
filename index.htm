@@ -73,9 +73,9 @@ text {
 <script>
 
 // Various accessors that specify the four dimensions of data to visualize.
-function x(d) { return d.income; }
-function y(d) { return d.lifeExpectancy; }
-function radius(d) { return d.population; }
+function x(d) { return d.things; }
+function y(d) { return d.remixes; }
+function radius(d) { return d.makes; }
 function color(d) { return d.region; }
 function key(d) { return d.name; }
 
@@ -118,7 +118,7 @@ svg.append("text")
     .attr("text-anchor", "end")
     .attr("x", width)
     .attr("y", height - 6)
-    .text("income per capita, inflation-adjusted (dollars)");
+    .text("remixes count");
 
 // Add a y-axis label.
 svg.append("text")
@@ -127,7 +127,7 @@ svg.append("text")
     .attr("y", 6)
     .attr("dy", ".75em")
     .attr("transform", "rotate(-90)")
-    .text("life expectancy (years)");
+    .text("makes count");
 
 // Add the year label; the value is set on transition.
 var label = svg.append("text")
@@ -138,7 +138,7 @@ var label = svg.append("text")
     .text(1800);
 
 // Load the data.
-d3.json("nations.json", function(nations) {
+d3.json("test.json", function(nations) {
 
   // A bisector since many nation's data is sparsely-defined.
   var bisect = d3.bisector(function(d) { return d[0]; });
@@ -220,7 +220,7 @@ d3.json("nations.json", function(nations) {
   // Tweens the entire chart by first tweening the year, and then the data.
   // For the interpolated data, the dots and label are redrawn.
   function tweenYear() {
-    var year = d3.interpolateNumber(1800, 2009);
+    var year = d3.interpolateNumber(1998, 2013);
     return function(t) { displayYear(year(t)); };
   }
 
@@ -236,9 +236,9 @@ d3.json("nations.json", function(nations) {
       return {
         name: d.name,
         region: d.region,
-        income: interpolateValues(d.income, year),
-        population: interpolateValues(d.population, year),
-        lifeExpectancy: interpolateValues(d.lifeExpectancy, year)
+        income: interpolateValues(d.things, year),
+        population: interpolateValues(d.remixes, year),
+        lifeExpectancy: interpolateValues(d.makes, year)
       };
     });
   }
